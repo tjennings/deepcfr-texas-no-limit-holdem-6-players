@@ -10,4 +10,6 @@
 .ds_store
 .env
 __pycache__
+*.egg-info/
+.idea/
 util.py

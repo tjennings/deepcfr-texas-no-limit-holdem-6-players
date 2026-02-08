@@ -1,0 +1,49 @@
+[project]
+name = "deepcfr-poker"
+version = "0.3.0"
+description = "Deep CFR Poker AI with Opponent Modeling"
+readme = "readme.md"
+license = "MIT"
+requires-python = ">=3.10"
+authors = [
+    { name = "Davide Berweger Gaillard", email = "davide@davideb.ch" },
+]
+classifiers = [
+    "Programming Language :: Python :: 3.10",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Intended Audience :: Science/Research",
+]
+dependencies = [
+    "torch==2.5.1",
+    "numpy==1.26.4",
+    "matplotlib==3.9.0",
+    "tensorboard==2.18.0",
+    "argparse",
+    "tqdm==4.67.0",
+    "pokers-db==2.2",
+    "python-dotenv==1.0.1",
+    "requests==2.32.3",
+    "seaborn==0.13.2",
+    "pandas==2.2.2",
+    "PyQt5==5.15.11",
+]
+
+[project.urls]
+Homepage = "https://github.com/dberweger2017/deepcfr-texas-no-limit-holdem-6-players"
+"Bug Tracker" = "https://github.com/dberweger2017/deepcfr-texas-no-limit-holdem-6-players/issues"
+Documentation = "https://github.com/dberweger2017/deepcfr-texas-no-limit-holdem-6-players#readme"
+"Source Code" = "https://github.com/dberweger2017/deepcfr-texas-no-limit-holdem-6-players"
+
+[project.scripts]
+deepcfr-train = "src.training.train:main"
+deepcfr-play = "scripts.play:main"
+deepcfr-tournament = "scripts.visualize_tournament:main"
+deepcfr-gui = "scripts.poker_gui:main"
+
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["src*", "scripts*"]
