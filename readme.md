@@ -17,7 +17,7 @@ I welcome contributions and feedback from the community as this project continue
 ### From PyPI (Recommended)
 
 ```bash
-pip install deepcfr-poker
+uv pip install deepcfr-poker
 ```
 
 ### From GitHub
@@ -27,8 +27,8 @@ pip install deepcfr-poker
 git clone https://github.com/dberweger2017/deepcfr-poker.git
 cd deepcfr-poker
 
-# Install in development mode
-pip install -e .
+# Install with uv
+uv sync
 ```
 
 ### Using the Command-Line Tools
@@ -309,12 +309,13 @@ The implementation includes various optimizations:
 
 ## Requirements
 
-- Python 3.8+
-- PyTorch 1.9+
+- Python 3.10+
+- [uv](https://docs.astral.sh/uv/) (recommended package manager)
+- PyTorch 2.5+
 - NumPy
 - Matplotlib
 - TensorBoard
-- [Pokers](https://github.com/Reinforcement-Poker/pokers) ("Embarrassingly simple" poker environment from Bruno Santidrian and 
+- [Pokers](https://github.com/Reinforcement-Poker/pokers) ("Embarrassingly simple" poker environment from Bruno Santidrian and
 Betagmr)
 
 ## Usage Guides
@@ -330,7 +331,7 @@ This guide provides a quick reference for training your Deep Counterfactual Regr
 Train a new agent against random opponents:
 
 ```bash
-python -m src.training.train --iterations 1000 --traversals 200
+uv run python -m src.training.train --iterations 1000 --traversals 200
 ```
 
 ##### Continue Training from Checkpoint
@@ -338,7 +339,7 @@ python -m src.training.train --iterations 1000 --traversals 200
 Resume training from a saved checkpoint against random opponents:
 
 ```bash
-python -m src.training.train --checkpoint models/checkpoint_iter_1000.pt --iterations 1000
+uv run python -m src.training.train --checkpoint models/checkpoint_iter_1000.pt --iterations 1000
 ```
 
 ##### Self-Play Training
@@ -346,7 +347,7 @@ python -m src.training.train --checkpoint models/checkpoint_iter_1000.pt --itera
 Train against a fixed checkpoint opponent:
 
 ```bash
-python -m src.training.train --checkpoint models/checkpoint_iter_1000.pt --self-play --iterations 1000
+uv run python -m src.training.train --checkpoint models/checkpoint_iter_1000.pt --self-play --iterations 1000
 ```
 
 ##### Mixed Checkpoint Training
@@ -354,13 +355,13 @@ python -m src.training.train --checkpoint models/checkpoint_iter_1000.pt --self-
 Train against a rotating pool of checkpoint opponents:
 
 ```bash
-python -m src.training.train --mixed --checkpoint-dir models --model-prefix t_ --refresh-interval 1000 --num-opponents 5 --iterations 10000
+uv run python -m src.training.train --mixed --checkpoint-dir models --model-prefix t_ --refresh-interval 1000 --num-opponents 5 --iterations 10000
 ```
 
 Continue an existing agent with mixed checkpoint training:
 
 ```bash
-python -m src.training.train --mixed --checkpoint models/checkpoint_iter_1000.pt --checkpoint-dir models --model-prefix t_ --iterations 1000
+uv run python -m src.training.train --mixed --checkpoint models/checkpoint_iter_1000.pt --checkpoint-dir models --model-prefix t_ --iterations 1000
 ```
 
 ##### Basic Opponent Modeling Training
@@ -368,7 +369,7 @@ python -m src.training.train --mixed --checkpoint models/checkpoint_iter_1000.pt
 Train a new agent with opponent modeling against random opponents:
 
 ```bash
-python -m src.training.train_with_opponent_modeling --iterations 1000 --traversals 200 --save-dir models_om --log-dir logs/deepcfr_om
+uv run python -m src.training.train_with_opponent_modeling --iterations 1000 --traversals 200 --save-dir models_om --log-dir logs/deepcfr_om
 ```
 
 ##### Mixed Opponent Modeling Training
@@ -376,7 +377,7 @@ python -m src.training.train_with_opponent_modeling --iterations 1000 --traversa
 Train with opponent modeling against a rotating pool of checkpoint opponents:
 
 ```bash
-python -m src.training.train_mixed_with_opponent_modeling --checkpoint-dir models_om --model-prefix "*" --iterations 10000 --traversals 200 --refresh-interval 1000 --num-opponents 5 --save-dir models_mixed_om --log-dir logs/deepcfr_mixed_om
+uv run python -m src.training.train_mixed_with_opponent_modeling --checkpoint-dir models_om --model-prefix "*" --iterations 10000 --traversals 200 --refresh-interval 1000 --num-opponents 5 --save-dir models_mixed_om --log-dir logs/deepcfr_mixed_om
 ```
 
 #### Parameters
@@ -425,7 +426,7 @@ python -m src.training.train_mixed_with_opponent_modeling --checkpoint-dir model
 Monitor training progress with TensorBoard:
 
 ```bash
-tensorboard --logdir=logs
+uv run tensorboard --logdir=logs
 ```
 
 Then open http://localhost:6006 in your browser.
@@ -445,7 +446,7 @@ To start a poker game against AI opponents, use one of the following scripts:
 ##### Playing Against Random Models
 
 ```bash
-python play_against_random_models.py --models-dir models
+uv run python play_against_random_models.py --models-dir models
 ```
 
 #### Command Line Options
@@ -524,21 +525,21 @@ Legal actions:
 
 ```bash
 # Use only models that have been trained for at least 1000 iterations
-python play_against_random_models.py --models-dir models --model-pattern "*_iter_1???.pt" 
+uv run python play_against_random_models.py --models-dir models --model-pattern "*_iter_1???.pt" 
 ```
 
 ##### Mixing in Random Agents
 
 ```bash
 # Use only 2 trained models, the rest will be random agents
-python play_against_random_models.py --models-dir models --num-models 2
+uv run python play_against_random_models.py --models-dir models --num-models 2
 ```
 
 ##### Changing Table Position
 
 ```bash
 # Play from the button position (typically position 5 in 6-player game)
-python play_against_random_models.py --models-dir models --position 5
+uv run python play_against_random_models.py --models-dir models --position 5
 ```
 
 ## Results
